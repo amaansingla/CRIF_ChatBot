@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRIF Internal Chatbot</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <div class="title-row">
+            <h1>CRIF Internal Chatbot</h1>
+          </div>
+          <p class="subtitle">
+            Single platform for internal links, project info, documentation & IT help
+          </p>
+        </div>
+
+        <div class="header-right">
+          <!-- Admin Button -->
+          <a href="/admin.html">
+            <button class="ghost" title="Admin Panel">Admin</button>
+          </a>
+
+          <button id="clear" class="ghost" title="Clear current conversation">
+            Clear Chat
+          </button>
+
+          <div class="status" title="Backend status">
+            <span class="dot"></span>
+            <span class="conn-text">Connected</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Layout -->
+      <main class="main">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <h2>Suggested Queries</h2>
+          <p class="small-note">Click to try demo queries instantly.</p>
+
+          <!-- PORTALS / LINKS -->
+          <div class="section">
+            <h3>Portals & Links</h3>
+            <div class="chips">
+              <button class="chip" data-q="jira link">jira link</button>
+              <button class="chip" data-q="crif portal">crif portal</button>
+            </div>
+          </div>
+
+          <!-- PROJECTS -->
+          <div class="section">
+            <h3>Projects</h3>
+            <div class="chips">
+              <button class="chip" data-q="cjaas">cjaas</button>
+              <button class="chip" data-q="s1 india">s1 india</button>
+              <button class="chip" data-q="cff">cff</button>
+              <button class="chip" data-q="insight">insight</button>
+            </div>
+          </div>
+
+          <!-- DOCUMENTS -->
+          <div class="section">
+            <h3>Documentation</h3>
+            <div class="chips">
+              <button class="chip" data-q="cjaas documentation">
+                cjaas documentation
+              </button>
+              <button class="chip" data-q="s1 india documentation">
+                s1 india documentation
+              </button>
+            </div>
+          </div>
+
+          <!-- INFOSEC / COMPLIANCE -->
+          <div class="section">
+            <h3>InfoSec & Compliance</h3>
+            <div class="chips">
+              <button class="chip" data-q="password policy">
+                password policy
+              </button>
+              <button class="chip" data-q="vpn">vpn</button>
+              <button class="chip" data-q="data classification">
+                data classification
+              </button>
+              <button class="chip" data-q="report incident">
+                report incident
+              </button>
+            </div>
+          </div>
+
+          <!-- TECH / FUNCTIONAL HELP -->
+          <div class="section">
+            <h3>Technical / Functional Help</h3>
+            <div class="chips">
+              <button class="chip" data-q="raise ticket">raise ticket</button>
+              <button class="chip" data-q="request access">
+                request access
+              </button>
+              <button class="chip" data-q="password reset">
+                password reset
+              </button>
+              <button class="chip" data-q="troubleshooting">
+                troubleshooting
+              </button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- ABOUT -->
+          <h2>About</h2>
+          <p class="about">
+            This internal chatbot provides quick access to CRIF portals,
+            ticketing links, project information, and documentation snippets
+            using a DB-backed knowledge base.
+          </p>
+
+          <div class="feature-box">
+            <p class="about small"><b>Key Features</b></p>
+            <ul class="feature-list">
+              <li>DB Retrieval (Links / Projects / Docs / InfoSec / Tech Help)</li>
+              <li>Audit Logging in QUERY_LOGS</li>
+              <li>Cache hits for repeated queries</li>
+              <li>Platform-agnostic Java Spring Boot</li>
+            </ul>
+          </div>
+
+          <p class="footer-note">
+            Built for CRIF Internal Query Addressal System (Internship Project)
+          </p>
+        </aside>
+
+        <!-- Chat Window -->
+        <section class="chat">
+          <div id="messages" class="messages"></div>
+
+          <div class="composer">
+            <input
+              id="input"
+              type="text"
+              placeholder="Ask anything… (example: vpn, password policy, raise ticket)"
+              autocomplete="off"
+            />
+            <button id="send">Send</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
