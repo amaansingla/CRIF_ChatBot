@@ -1,301 +1,231 @@
 # CRIF Internal Chatbot
 
-## Overview
+A full-stack internal knowledge assistant built with Spring Boot, JPA, H2 Database, and JavaScript. The chatbot provides employees with a centralized interface for accessing project information, documentation, internal tools, and support resources through natural language queries.
 
-The CRIF Internal Chatbot is an MVP (Minimum Viable Product) solution designed to provide employees with a unified interface for accessing internal information and resources. This intelligent chatbot streamlines information retrieval by offering quick access to documentation, project details, links to internal portals, and commonly requested resources through a conversational interface.
+## Demo
 
-## Key Features
+📸 **Application Screenshot**
 
-- **Unified Information Access**: Single point of access for internal documentation, project information, and portal links
-- **Intelligent Query Processing**: Natural language understanding with keyword-based search and query normalization
-- **Performance Optimization**: Built-in caching mechanism to improve response times for frequently asked questions
-- **Suggested Queries**: Pre-configured query buttons for common information requests
-- **Audit Trail**: Comprehensive query logging for usage analytics and system improvement
-- **Real-time Health Monitoring**: Connection status indicator for system availability
+<img width="1202" height="1300" alt="CRIF_Chatbot Demo_Photo" src="https://github.com/user-attachments/assets/31b567d2-065f-45fa-9e3f-31007caaf1f7" />
+
+
+🎥 **Demo Video**
+
+https://youtu.be/VLs4wyUOvvk
+
+---
+
+## Key Highlights
+
+* Built a full-stack chatbot using Spring Boot and JavaScript
+* Implemented intelligent keyword-based search across internal knowledge resources
+* Added in-memory caching using ConcurrentHashMap to improve response performance
+* Designed a layered architecture following enterprise software design principles
+* Developed REST APIs for chatbot communication and health monitoring
+* Implemented query logging and audit tracking for analytics and debugging
+* Created a responsive web interface with real-time status monitoring
+
+---
+
+## Features
+
+### Intelligent Knowledge Retrieval
+
+Search internal documentation, project information, support resources, and portal links using natural language queries.
+
+### Query Optimization
+
+Frequently requested queries are cached in memory to reduce redundant database lookups and improve response times.
+
+### Suggested Queries
+
+Pre-configured prompts help users quickly discover available functionality.
+
+### Audit Logging
+
+Every interaction is logged with timestamps and response metadata for monitoring and future analytics.
+
+### Health Monitoring
+
+Built-in health check endpoint and connection status indicator provide visibility into application availability.
+
+---
 
 ## Technology Stack
 
-### Frontend
-- **HTML5/CSS3**: Modern, responsive user interface
-- **Vanilla JavaScript**: Lightweight client-side logic without external dependencies
-- **RESTful Integration**: Clean API communication layer
-
 ### Backend
-- **Spring Boot**: Enterprise-grade Java framework for robust API development
-- **Spring Data JPA**: Simplified data access and repository pattern implementation
-- **H2 Database**: In-memory relational database for rapid prototyping (suitable for MVP)
-- **Maven**: Dependency management and build automation
 
-## System Architecture
+* Java 17
+* Spring Boot
+* Spring Data JPA
+* H2 Database
+* Maven
 
-The application follows a layered architecture pattern with clear separation of concerns:
+### Frontend
 
-```
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* REST API Integration
+
+---
+
+## Architecture
+
+The application follows a layered architecture pattern:
+
+```text
 ┌─────────────────────────────────────┐
-│         UI Layer (Client)           │
-│   HTML + CSS + JavaScript           │
+│          Frontend Layer             │
+│      HTML + CSS + JavaScript        │
 └─────────────────┬───────────────────┘
                   │
-                  │ HTTP/JSON
+                  │ HTTP / JSON
                   │
 ┌─────────────────▼───────────────────┐
-│      API Layer (Controller)         │
-│      Spring Boot REST API           │
+│          REST API Layer             │
+│     Spring Boot Controllers         │
 └─────────────────┬───────────────────┘
                   │
-                  │
 ┌─────────────────▼───────────────────┐
-│     Service Layer (ChatService)     │
-│  Business Logic + Cache Management  │
+│        Business Logic Layer         │
+│      ChatService + Caching          │
 └─────────────────┬───────────────────┘
                   │
-                  │
 ┌─────────────────▼───────────────────┐
-│      Data Layer (Repositories)      │
-│   Spring Data JPA + H2 Database     │
+│          Persistence Layer          │
+│      Spring Data JPA + H2 DB        │
 └─────────────────────────────────────┘
 ```
 
-For detailed architecture documentation, see [ARCHITECTURE.md](ARCHITECTURE.md).
+For additional implementation details, see ARCHITECTURE.md.
 
-## Getting Started
+---
 
-### Prerequisites
+## Example Queries
 
-- **Java JDK**: Version 17 or higher
-- **Maven**: Version 3.6 or higher
-- **Web Browser**: Modern browser with JavaScript enabled (Chrome, Firefox, Edge, Safari)
+* Show me the JIRA link
+* Where can I find authentication documentation?
+* Tell me about the customer portal project
+* How do I contact IT support?
+* Show available support resources
 
-### Installation
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd crif-internal-chatbot
-   ```
+## API Endpoints
 
-2. **Build the project**
-   ```bash
-   mvn clean install
-   ```
+### Send Chat Message
 
-3. **Run the application**
-   ```bash
-   mvn spring-boot:run
-   ```
+```http
+POST /api/chat
+```
 
-4. **Access the application**
-   
-   Open your web browser and navigate to:
-   ```
-   http://localhost:8080
-   ```
+Request:
 
-### Configuration
-
-The application uses Spring Boot's default configuration. Key configuration files:
-
-- `application.properties`: Database connection, server port, and application settings
-- `DataLoader.java`: Initial knowledge base population
-
-## Usage
-
-### Basic Interaction
-
-1. Type your query in the chat input field
-2. Press Enter or click the Send button
-3. Receive formatted responses with clickable links to resources
-4. Use suggested query chips for quick access to common requests
-
-### Sample Queries
-
-- "Show me the JIRA link"
-- "Where can I find documentation on authentication?"
-- "Tell me about the customer portal project"
-- "How do I contact IT support?"
-
-### Query Types
-
-The chatbot can handle various query types:
-
-- **Portal and Tool Links**: Access links to JIRA, Confluence, internal portals
-- **Documentation Search**: Find technical and process documentation
-- **Project Information**: Retrieve details about internal projects
-- **Help Resources**: Access InfoSec guidelines, technical support contacts
-
-## Knowledge Base Management
-
-### Current Implementation
-
-The knowledge base is populated through the `DataLoader.java` class, which executes on application startup. This class inserts predefined records into the database across four main categories:
-
-- **Links**: URLs to internal tools and portals
-- **Projects**: Information about ongoing and completed projects
-- **Documents**: Technical documentation and process guides
-- **Help Resources**: Support contacts and information security guidelines
-
-### Adding New Content
-
-To add new knowledge to the chatbot:
-
-1. Locate `DataLoader.java` in the source code
-2. Add new entries using the appropriate repository methods
-3. Rebuild and restart the application
-
-### Future Enhancements
-
-A planned improvement is an administrative UI panel that will allow authorized users to:
-
-- Add new knowledge base entries without code modifications
-- Edit existing entries
-- Manage keywords and categories
-- Remove outdated information
-
-## API Documentation
-
-### Chat Endpoint
-
-**POST** `/api/chat`
-
-Request body:
 ```json
 {
-  "message": "your query here"
+  "message": "Show me the JIRA link"
 }
 ```
 
 Response:
+
 ```json
 {
-  "reply": "Formatted response with information and links"
+  "reply": "JIRA Portal: https://..."
 }
 ```
 
-### Health Check Endpoint
+### Health Check
 
-**GET** `/api/health`
-
-Returns HTTP 200 if the service is operational.
-
-## Database Schema
-
-The application uses four main tables:
-
-- **LINKS**: Stores URLs to internal resources with keywords
-- **PROJECTS**: Contains project descriptions and metadata
-- **DOCUMENTS**: Holds documentation snippets and references
-- **QUERY_LOGS**: Maintains audit trail of all queries and responses
-
-## Performance Optimization
-
-### Caching Strategy
-
-The chatbot implements an in-memory caching mechanism using `ConcurrentHashMap`:
-
-- Queries are normalized before cache lookup
-- Cache hits prevent redundant database queries
-- Cache statistics are logged for monitoring
-- Thread-safe implementation for concurrent access
-
-## Logging and Monitoring
-
-### Query Logging
-
-All queries are logged with the following information:
-
-- Original query text
-- Generated response
-- Source type (DATABASE or CACHE)
-- Timestamp
-
-### Health Monitoring
-
-The application provides a real-time connection status indicator visible in the UI.
-
-## Development Guidelines
-
-### Code Structure
-
-```
-src/
-├── main/
-│   ├── java/
-│   │   └── com/crif/chatbot/
-│   │       ├── controller/    # REST API endpoints
-│   │       ├── service/       # Business logic
-│   │       ├── repository/    # Data access layer
-│   │       ├── model/         # Entity definitions
-│   │       └── config/        # Configuration classes
-│   └── resources/
-│       ├── static/            # Frontend assets
-│       │   ├── index.html
-│       │   ├── style.css
-│       │   └── app.js
-│       └── application.properties
+```http
+GET /api/health
 ```
 
-### Best Practices
+Returns HTTP 200 when the service is operational.
 
-- Follow standard Java naming conventions
-- Write unit tests for service layer logic
-- Document all public methods and classes
-- Use meaningful commit messages
-- Keep frontend and backend concerns separated
+---
 
-## Testing
+## Database Design
 
-### Running Tests
+The chatbot stores information across several domain entities:
+
+| Table      | Purpose                              |
+| ---------- | ------------------------------------ |
+| LINKS      | Internal tools and portal URLs       |
+| PROJECTS   | Project information and metadata     |
+| DOCUMENTS  | Documentation and reference material |
+| QUERY_LOGS | User interactions and audit history  |
+
+---
+
+## Performance Enhancements
+
+* Query normalization before searching
+* In-memory caching using ConcurrentHashMap
+* Reduced database lookups for repeated queries
+* Thread-safe cache implementation for concurrent access
+
+---
+
+## Running Locally
+
+### Prerequisites
+
+* Java 17+
+* Maven 3.6+
+
+### Installation
 
 ```bash
-mvn test
+git clone <repository-url>
+cd CRIF_ChatBot
 ```
 
-### Test Coverage
+```bash
+mvn clean install
+```
 
-The project includes tests for:
+```bash
+mvn spring-boot:run
+```
 
-- Service layer business logic
-- Repository data access operations
-- API endpoint responses
+Open:
 
-## Deployment Considerations
+```text
+http://localhost:8080
+```
 
-### Production Readiness
+---
 
-For production deployment, consider the following upgrades:
+## Future Improvements
 
-1. **Database**: Replace H2 with a production-grade database (PostgreSQL, MySQL, Oracle)
-2. **Authentication**: Implement user authentication and authorization
-3. **Security**: Add HTTPS, input validation, and rate limiting
-4. **Monitoring**: Integrate application performance monitoring (APM) tools
-5. **Logging**: Configure centralized logging with log aggregation
-6. **Scaling**: Implement distributed caching (Redis) for multi-instance deployment
+* Admin dashboard for managing knowledge base content
+* PostgreSQL integration for production deployment
+* Authentication and role-based access control
+* AI-powered semantic search
+* Distributed caching using Redis
+* Enhanced analytics and reporting
 
-## Troubleshooting
+---
 
-### Common Issues
+## Lessons Learned
 
-**Application fails to start**
-- Verify Java version (requires JDK 17+)
-- Check if port 8080 is available
-- Review application logs for detailed error messages
+This project provided hands-on experience with:
 
-**Database initialization errors**
-- Ensure H2 dependencies are correctly configured
-- Check DataLoader.java for syntax errors
-- Verify database schema compatibility
+* Spring Boot application development
+* REST API design
+* Repository and service layer architecture
+* Database modeling with JPA
+* Application caching strategies
+* Full-stack integration between frontend and backend
+* Enterprise software design patterns
 
-**Frontend not loading**
-- Clear browser cache
-- Check browser console for JavaScript errors
-- Verify static resources are in correct directory
+---
 
-## Contributing
+## Author
 
-Contributions to improve the chatbot are welcome. Please follow these guidelines:
+Amaan Singla
 
-1. Create a feature branch from `main`
-2. Write tests for new functionality
-3. Ensure all tests pass before submitting
-4. Update documentation as needed
-5. Submit a pull request with a clear description of changes
+GitHub: https://github.com/amaansingla
+
